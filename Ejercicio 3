@@ -1,0 +1,19 @@
+#Script basico BASH
+# 1.A mi parecer en el script se busca obtener como output los datos de envio de prefencia de los usuarios.
+# 2.La linea de codigo script esta detallada comentado en el codigo debajo.
+# 3.A mi parecer se imprimen como output la misma cantidad de "users_id" que se declara al principio del codigo (6 lineas).
+
+#!/bin/bash
+# Se declara la variable "users_id" con el id de cada usuario.
+users_id=(71665538 66146765 132961968 15096445 172753273 54152646)
+
+# Se crea la variable para el recorrido "users_id" la cual recorre los id de la variable antes declarada "users_id" 
+for users_id in ${users_id[*]} 
+do
+#Se declara la variable "curl" la cual obtiene los objetos JSON necesarios de cada "user_id" llamado en la url. "curl -s es usado para no generar datos innesarios"
+curl=$(curl -s " api.mercadolibre.com/users/$users_id/shipping_preferences " | jq -c
+services')
+
+#Se muestra por pantalla los correspondientes datos (curl) de cada "users_id".
+echo "$users_id: $curl"
+done
